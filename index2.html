@@ -54,6 +54,11 @@
       rel="stylesheet">
   <link rel="stylesheet" href="material-datetime-picker.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/calendar.css" />
+
+  <script type="text/javascript" src="scripts/pureJSCalendar.js"></script>
+    
+    
     
     <style>
      body {
@@ -183,33 +188,28 @@
             <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
               <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
                 <h3>Planning a Holiday?</h3>
+                <div>
+                  <button type="button" class="mdl-chip mdl-color--pink mdl-color-text--white">
+                  <span class="mdl-chip__text">Start Date</span>
+              </button>
+                   <input id= "startdate" type = "date" > 
+                </div>
+                
+                    
+<br><br>
+                      <div>
+                        <button type="button" class="mdl-chip mdl-color--pink mdl-color-text--white">
+                      <span class="mdl-chip__text ">End Date</span>
+                  </button>
+                     <input id= "enddate" type = "date" style = "vertical-align: middle"> 
+                   
+                      </div>
+                      
+                    <!-- 
+                     <input type="button" value="Start date" onclick="pureJSCalendar.open('dd.MM.yyyy', 20, 30, 1, '2018-5-5', '2019-8-20', 'txtTest', 20)" /> -->
+                   
+                    <!-- <input type="text" id="txtTest" /> -->
 
-                <a class="c-btn c-datepicker-btn">
-                        <span class="material-icon">Open date picker</span>
-                     
-                      </a>
-
-                      <pre id="output"></pre>
-
-
-                      <script src="https://unpkg.com/babel-polyfill@6.2.0/dist/polyfill.js"></script>
-                      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
-                      <script src="https://cdnjs.cloudflare.com/ajax/libs/rome/2.1.22/rome.standalone.js"></script>
-                      <script src="material-datetime-picker.js" charset="utf-8"></script>
-
-                      <script>
-
-                        var picker = new MaterialDatetimePicker({})
-                          .on('submit', function(d) {
-                            output.innerText = d;
-                          });
-
-                        var el = document.querySelector('.c-datepicker-btn');
-                        el.addEventListener('click', function() {
-                         // picker.open();
-                        }, false);
-
-                    </script>
                     </div>
                       
   
@@ -261,8 +261,6 @@
           </g>
         </defs>
       </svg>
-      
   
-    
   </body>
 </html>
