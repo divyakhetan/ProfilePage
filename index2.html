@@ -209,12 +209,12 @@
 
         
 
-        var url = new URL("https://availo.com?username=divya");
+        var url = new URL("URL_HERE");
         console.log(url);
         var id = url.searchParams.get('id');
         console.log(id);
 
-        var res = await fetch('https://availo-api.herokuapp.com/officers/5c7518db3d9a8e1c745eea20');
+        var res = await fetch('API_ENDPOINT_HERE');
         var json = await res.json();
         console.log(json);
         $("#name").html($("#name").html() + json["name"]);
