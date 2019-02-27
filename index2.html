@@ -144,16 +144,16 @@
         <div class="mdl-grid demo-content">
          
           <div class=" mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col" style = "padding: 10px">
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Name: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Designation: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Department: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Description: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Email: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Address: </p><br>
-           <a href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"><img src = " https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyABPbaU11DPf0IaP5tK7EUSzECqkoCNQfs" class = "responsive"></a><br><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Office hours: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Phone Number: </p><br>
-           <p class = "mdl-card__title-text" style = "font-size: 20px">Phone Extension: </p>
+           <p id="name" class = "mdl-card__title-text" style = "font-size: 20px">Name: </p><br>
+           <p id = "designation"class = "mdl-card__title-text" style = "font-size: 20px">Designation: </p><br>
+           <p id = "department"class = "mdl-card__title-text" style = "font-size: 20px">Department: </p><br>
+           <p id = "description"class = "mdl-card__title-text" style = "font-size: 20px">Description: </p><br>
+           <p id = "email"class = "mdl-card__title-text" style = "font-size: 20px">Email: </p><br>
+           <p id = "address" class = "mdl-card__title-text" style = "font-size: 20px">Address: </p><br>
+           <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"><img id="mapimage" src = "https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyABPbaU11DPf0IaP5tK7EUSzECqkoCNQfs" class = "responsive"></a><br><br>
+           <p id = "workingHours"class = "mdl-card__title-text" style = "font-size: 20px">Office hours: </p><br>
+           <p id = "phone" class = "mdl-card__title-text" style = "font-size: 20px">Phone Number: </p><br>
+           <p id = "phone_extension"class = "mdl-card__title-text" style = "font-size: 20px">Phone Extension: </p>
               
           </div>
           <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
@@ -171,7 +171,7 @@
               
             </div>
             <div class="demo-separator mdl-cell--1-col"></div>
-            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
+            <div class="demo-options mdl-card mdl-color--orange-400 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
               <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
                 <h2 class="mdl-card__title-text">Planning a holiday?</h2> <br>
                 <div>
@@ -202,10 +202,51 @@
       </main>
     </div>
      <script type="text/javascript">
+
+
+
+      window.onload = async function(){
+
+        
+
+        var url = new URL("https://availo.com?username=divya");
+        console.log(url);
+        var id = url.searchParams.get('id');
+        console.log(id);
+
+        var res = await fetch('https://availo-api.herokuapp.com/officers/5c7518db3d9a8e1c745eea20');
+        var json = await res.json();
+        console.log(json);
+        $("#name").html($("#name").html() + json["name"]);
+        $("#designation").html($("#designation").html() + json["designation"]);
+        $("#description").html($("#description").html() + json["description"]);
+        $("#department").html($("#department").html() + json["department"]);
+        var startdate = new Date(json["workingHours"]["startTime"]);
+        var startTime = clean(startdate.getHours())  + ":" + clean(startdate.getMinutes()) + ":" + clean(startdate.getSeconds());
+
+        var enddate = new Date(json["workingHours"]["endTime"]);
+        var endTime = clean(enddate.getHours())  + ":" + clean(enddate.getMinutes()) + ":" + clean(enddate.getSeconds());
+
+        $("#workingHours").html($("#workingHours").html() + startTime + " - " + endTime);
+        $("#address").html($("#address").html() + json["address"]);
+        $("#phone").html($("#phone").html() + json["phoneNo"]);
+        $("#email").html($("#email").html() + json["email"]);
+        $("#phone_extension").html($("#phone_extension").html() + json["phoneExtension"]);
+        var coords = json["officeLocation"]["latitude"] + "," + json["officeLocation"]["longitude"];
+        $("#mapimage").attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' + coords + '&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=YOUR_API_KEY');
+        $("#maplink").attr('href', 'https://www.google.com/maps/@' + coords + ',18.64z')
+        
+      }
+
+      function clean(x){
+          if(x < 10) return '0' + x;
+          return x;
+        }
+
        document.querySelector('#switch-1').addEventListener('change', function(){
         console.log(this.checked);
        });
-     </script>
+     </script>desgination
   
   </body>
 </html>
