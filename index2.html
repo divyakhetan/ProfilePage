@@ -29,10 +29,10 @@
    
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   
-
+<!-- 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABPbaU11DPf0IaP5tK7EUSzECqkoCNQfs&callback=initMap">
-    </script>
+    </script> -->
     
     
     <style>
@@ -150,7 +150,16 @@
            <p id = "description"class = "mdl-card__title-text" style = "font-size: 20px">Description: </p><br>
            <p id = "email"class = "mdl-card__title-text" style = "font-size: 20px">Email: </p><br>
            <p id = "address" class = "mdl-card__title-text" style = "font-size: 20px">Address: </p><br>
-           <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"><img id="mapimage" src = "https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyABPbaU11DPf0IaP5tK7EUSzECqkoCNQfs" class = "responsive"></a><br><br>
+           <!-- <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"> -->
+           <!-- <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"> <img id="mapimage" src = "https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyABPbaU11DPf0IaP5tK7EUSzECqkoCNQfs" class = "responsive"></a><br><br> -->
+            <!-- <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"> <img id="mapimage" src = "https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyCrqUlbATGozehIWTVim5OoKm3VWBiFd4s" class = "responsive"></a><br><br> -->
+         <!-- <a id="maplink" href = "https://www.google.com/maps/@28.5331128,77.1527382,18.64z" target="_blank"><img id="mapimage" src = "https://maps.googleapis.com/maps/api/staticmap?center=28.5358315,77.1544826&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyCLt4qPzXbPQHW_s5P0ThHBAc-hKGZwo4E" class = "responsive"></a><br><br> -->
+
+          <a id="maplink" target="_blank"><img id="mapimage" class = "responsive"></a><br><br>
+
+
+
+           <p id = "workingHours"class = "mdl-card__title-text" style = "font-size: 20px">Office hours: </p><br>
            <p id = "workingHours"class = "mdl-card__title-text" style = "font-size: 20px">Office hours: </p><br>
            <p id = "phone" class = "mdl-card__title-text" style = "font-size: 20px">Phone Number: </p><br>
            <p id = "phone_extension"class = "mdl-card__title-text" style = "font-size: 20px">Phone Extension: </p>
@@ -187,7 +196,10 @@
                         <button type="button" class="mdl-chip mdl-color--pink mdl-color-text--white">
                       <span class="mdl-chip__text ">End Date</span>
                   </button>
-                     <input id= "enddate" type = "date" style = "vertical-align: middle"> 
+                  <div id="input date">
+                    <input id= "enddate" type = "date" style = "vertical-align: middle">
+                  </div>
+                      
                    
                       </div>
               
@@ -209,12 +221,12 @@
 
         
 
-        var url = new URL("URL_HERE");
+        var url = new URL("https://availo.com?username=divya");
         console.log(url);
         var id = url.searchParams.get('id');
         console.log(id);
 
-        var res = await fetch('API_ENDPOINT_HERE');
+        var res = await fetch('https://availo-api.herokuapp.com/officers/5c7518db3d9a8e1c745eea20');
         var json = await res.json();
         console.log(json);
         $("#name").html($("#name").html() + json["name"]);
@@ -233,7 +245,7 @@
         $("#email").html($("#email").html() + json["email"]);
         $("#phone_extension").html($("#phone_extension").html() + json["phoneExtension"]);
         var coords = json["officeLocation"]["latitude"] + "," + json["officeLocation"]["longitude"];
-        $("#mapimage").attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' + coords + '&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=YOUR_API_KEY');
+        $("#mapimage").attr('src', 'https://maps.googleapis.com/maps/api/staticmap?center=' + coords + '&zoom=17&size=1000x250&maptype=roadmap&markers=color:red%7Clabel:Off%7C28.5358315,77.1544826&key=AIzaSyCrqUlbATGozehIWTVim5OoKm3VWBiFd4s');
         $("#maplink").attr('href', 'https://www.google.com/maps/@' + coords + ',18.64z')
         
       }
